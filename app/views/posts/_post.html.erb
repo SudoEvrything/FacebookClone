@@ -1,0 +1,11 @@
+<li id="<%= post.id %>">
+	<span class="user"><%= link_to post.user.name, post.user%></span>
+	<p><span class="content"><%= post.content %></span></p>
+	<span class="timestamp">
+		debug
+		<% if current_user?(post.user) %>
+			<%= link_to "Delete", post, method: :delete, data: { confirm: "Are you sure?" } %>
+		<% end %>
+		Posted <%= time_ago_in_words(post.created_at) %> ago.
+	</span>
+</li>

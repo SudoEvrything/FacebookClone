@@ -1,0 +1,26 @@
+<% if logged_in? %>
+	<div class="row">
+		<aside class="side_panel">
+			<section class="user_info">
+				<%= render 'shared/user_info' %>
+			</section>
+			<section class="post_form">
+				<%= render 'shared/post_form' %>
+			</section>
+		</aside>
+		<div class="main_panel">
+			<h3>Post Feed</h3>
+			<%= render 'shared/feed' %>
+		</div>
+	</div>
+<% else %>
+	<div class="">
+		<h1>Welcome to Facebook</h1>
+
+		<h2>
+			<a href="#">Facebook</a>
+		</h2>
+
+		<%= link_to "Sign Up Now", signup_path, class: "btn" %>
+	</div>
+<% end %>

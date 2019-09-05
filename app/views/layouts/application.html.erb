@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FacebookClone</title>
+    <title><%= yield(:title) %>| FacebookClone</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,11 @@
   </head>
 
   <body>
+      <%= render 'layouts/header' %>
+      <% flash.each do |message_type, message| %>
+        <div class="alert-<%= message_type %>"><%= message %></div>
+      <% end %>
     <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
