@@ -1,0 +1,13 @@
+<h1>Your Friends</h1>
+
+<ul id="friend-listing">
+  <% @friendships.each do |friendship| %>
+    <li class="friend_listing">    
+      <% if @user.id == friendship.friend_id %>
+        <%= render 'friendships/inverse_friend', friendship: friendship %>      
+      <% else %>  
+        <%= render 'friendships/friend', friendship: friendship %>      
+      <% end %>   
+    </li>
+  <% end %>  
+</ul>

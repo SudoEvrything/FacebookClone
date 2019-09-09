@@ -1,0 +1,38 @@
+<h4><%= @post.user.name %> posted <%= time_ago_in_words(@post.created_at) %> ago:</h4>
+<p><%= @post.content %></p>
+
+<div>
+<span>(<%= pluralize(@post.likes.count, 'like') %>)</span> 
+<% unless current_user.likes?(@post) %>
+  <%= render 'like_form' %>
+<% else %>
+  <%= link_to 'UNLIKE', like_path(@like.id), method: :delete, class: 'text-only' %>
+<% end %>
+</div>
+
+<% if current_user == @post.user %>
+  <%= link_to '(edit post)', edit_post_path(@post) %>
+<% end %>
+
+<% if @comments %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <% if comment.user == current_user %>
+          <p><%= link_to 'You', current_user %> said 
+              <%= time_ago_in_words(comment.created_at) %> ago. 
+              (<%= link_to 'delete', comment, method: :delete, data: { confirm: 'You sure?'} %>)
+          </p>
+          <%= render 'edit_comment', comment: comment %>
+        <% else %>
+         <p><%= link_to comment.user.name, comment.user %> <%= time_ago_in_words(comment.created_at) %> ago.</p>
+        <% end %>
+        <p><%= comment.body %></p>
+      </li>
+    <% end %>    
+  </ul>
+<% end %>
+
+<p><strong>New Comment</strong></p>
+<%= render 'comment_form' %>
+

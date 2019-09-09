@@ -1,0 +1,6 @@
+<%= friendship.user.name %>
+<% if friendship.status == "pending" %>
+  (<%= link_to "accept", friendship_path(friendship, @user), method: :patch, action: :update %>)
+<% else %>  
+  (<%= link_to "unfriend", friendship, :method => :delete %>)
+<% end %>   

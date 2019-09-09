@@ -1,7 +1,22 @@
-<% provide(:title, @user.name) %>
 <h2><%= render 'shared/user_info' %></h2>
-<p>
-<ul class="posts">
-	<%= render @posts %>
+
+<% unless @current_user == @user %>
+  <% if @current_user.is_friend?(@user) %>
+    <p>Friendship Status: <%= @current_user.relationship_status(@user) %>(
+        <%= link_to "unfriend", @current_user.find_friendship(@user), 
+                                method: :delete,
+                                data: { confirm: "You sure?"} %>)</p>
+  <% else %>
+    <span>Not Friends. (<%= render 'friendships/add_friend', user: @user %>)</span>
+  <% end %>
+<% else %>
+<% end %>
+
+<ul class="profile-posts">
+  <% @user.posts.each do |post| %>
+    <li>
+      <p><%= link_to post.content, post_path(post)  %></p>
+      <p>Posted <%= link_to "#{time_ago_in_words(post.created_at)} ago"%></p>
+    </li>
+  <% end %>  
 </ul>
-</p>

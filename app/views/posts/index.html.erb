@@ -1,0 +1,20 @@
+<h1>Your Feed</h1>
+
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+
+    <ul>
+      <li class="post_item">
+        <a href="<%= post_path(post) %>"><em>Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %></em></a> 
+        <p><%= post.content %></p>
+
+        (<%= pluralize(post.likes.count, 'like') %>)
+        (<%= link_to "#{post.comments.count} comments", post %>)
+      </li>
+    </ul>
+
+  <% end %>
+
+<% else %>
+  <p>It's lonely here! Try <%= link_to("writing a post", new_post_path) %> to spruce things up!</p>
+<% end %>
